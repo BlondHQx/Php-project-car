@@ -1,7 +1,7 @@
 <?php
 session_start();
 //verifie si l'image a ete importer
-if(!empty($_FILES["file"])){
+if(!empty($_FILES["file"])&& !empty($_SESSION)){
     $tmpname = $_FILES['file']['tmp_name'];
     $uniqueName = uniqid('', true);
     $arrayImg = json_decode(file_get_contents('../database/img.json'));
@@ -12,5 +12,7 @@ if(!empty($_FILES["file"])){
 
     move_uploaded_file($tmpname, '../assets/img/uploads/'. $uniqueName );
     header('Location:../index.php');
+}else {
+    echo 'error vous devez etre connecter !';
 }
 ?>
